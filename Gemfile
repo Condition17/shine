@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'faker'
 gem 'bower-rails'
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
