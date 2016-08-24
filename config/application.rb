@@ -33,3 +33,7 @@ module Shine
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+Rails.application.configure do
+  config.active_record.schema_format = :sql
+end
