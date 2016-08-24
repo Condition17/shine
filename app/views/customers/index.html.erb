@@ -1,12 +1,12 @@
 <header class = "container">
 <h1> Customer Search </h1>
 	<section class = "search-form">
-		<%= simple_form_for :costumers, method: :get do |f| %>
+		<%= form_for :customers, method: :get do |f| %>
 			
 			<div class="input-group input-group-lg">
-				<%= f.input :keywords, placeholder: "First Name, Last Name, or Email Adress", input_html: {class: "form-control input-lg"}, label: false %>
+				<%= text_field_tag :keywords, nil, placeholder: "First Name, Last Name, or Email Adress",class: "form-control input-lg"%>
 				<span class = "input-group-btn">
-					<%= f.submit "Find Costumers", class: "btn btn-primary btn-lg" %>
+					<%= submit_tag "Find Costumers", class: "btn btn-primary btn-lg" %>
 				</span>
 			</div>
 		
