@@ -35,8 +35,8 @@ SET default_with_oids = false;
 
 CREATE TABLE customers (
     id integer NOT NULL,
-    firstname character varying NOT NULL,
-    lastname character varying NOT NULL,
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
     email character varying NOT NULL,
     username character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -144,10 +144,10 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_customers_on_username_and_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_customers_on_email_and_username; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_customers_on_username_and_email ON customers USING btree (username, email);
+CREATE UNIQUE INDEX index_customers_on_email_and_username ON customers USING btree (email, username);
 
 
 --
@@ -182,4 +182,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160823132250');
 INSERT INTO schema_migrations (version) VALUES ('20160824074540');
 
 INSERT INTO schema_migrations (version) VALUES ('20160824100410');
+
+INSERT INTO schema_migrations (version) VALUES ('20160824102309');
 

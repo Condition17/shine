@@ -1,0 +1,42 @@
+<header class = "container">
+<h1> Customer Search </h1>
+	<section class = "search-form">
+		<%= simple_form_for :costumers, method: :get do |f| %>
+			
+			<div class="input-group input-group-lg">
+				<%= f.input :keywords, placeholder: "First Name, Last Name, or Email Adress", input_html: {class: "form-control input-lg"}, label: false %>
+				<span class = "input-group-btn">
+					<%= f.submit "Find Costumers", class: "btn btn-primary btn-lg" %>
+				</span>
+			</div>
+		
+		<% end %>
+	</section>
+
+	<section class = "search-resoults">
+		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Joined</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<%@customers.each do |customer| %>
+					<tr>
+						<td><%= customer.first_name %></td>
+						<td><%= customer.last_name %></td>
+						<td><%= customer.email %></td>
+						<td><%= customer.created_at.to_date %></td>
+					</tr>
+				<%end%>
+			</tbody>
+
+		</table>
+	</section>
+
+</header>

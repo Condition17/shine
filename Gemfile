@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'simple_form'
 gem 'faker'
 gem 'bower-rails'
 gem 'devise'
