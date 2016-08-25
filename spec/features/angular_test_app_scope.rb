@@ -9,11 +9,10 @@ feature "angular test" do
 
 	scenario "Angular test app is working" do
 		visit "/angular_test"
-
 		fill_in "Email", with: "cristian@shine.com"
 		fill_in "Password", with: "testpasswordtest"
 		click_button "Log in"
-
+		
 		expect(page).to have_content("Name")
 
 		fill_in "name", with: "Bob"
