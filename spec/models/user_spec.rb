@@ -1,3 +1,4 @@
+=begin
 require 'rails_helper'
 require 'support/violate_check_constraint_matcher'
 describe User do
@@ -12,3 +13,4 @@ describe User do
 		end
 	end	
 end
+=end
