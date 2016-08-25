@@ -3,9 +3,7 @@
 		<h1> Customer Search </h1>
 		<section class = "search-form">
 			<form>
-				<div class = "input-group input-group-lg">
-					<input type = "text" name = "keywords" ng-change = "search(keywords)"class = "form-control input-lg", placeholder= "First Name, Last Name, or Email Adress", ng-model = "keywords" >
-				</div>
+					<input type = "text" name = "keywords" class = "form-control input-lg", placeholder= "First Name, Last Name, or Email Adress", ng-model = "keywords" ng-change = "search(keywords)" autofocus>
 			</form>
 		</section>
 	</header>

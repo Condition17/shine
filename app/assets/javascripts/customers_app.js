@@ -5,7 +5,7 @@ app.controller("CustomerSearchController", [ "$scope","$http", function($scope, 
  $scope.customers = [];
   
   $scope.search = function(searchTerm) {   
-  	if ( searchTerm >= 3){
+  	if ( searchTerm.length >= 3){
 	    $http.get('/customers.json',{ "params" : {"keywords": searchTerm, "page": page} }
 	    	).then( function( response ) {
 	    		$scope.customers = response.data;	
@@ -16,7 +16,6 @@ app.controller("CustomerSearchController", [ "$scope","$http", function($scope, 
   }
   
   $scope.previousPage= function(){
-  	alert("here I am!");
   	if( page > 0){
   		page = page -1;
   		$scope.search( $scope.keywords );
@@ -24,7 +23,6 @@ app.controller("CustomerSearchController", [ "$scope","$http", function($scope, 
   }
 
   $scope.nextPage = function(){
-  	alert("I am the next one");
   	page = page + 1;
   	$scope.search( $scope.keywords);
   }
