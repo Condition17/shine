@@ -1,37 +1,39 @@
-<header class = "container">
-<h1> Customer Search </h1>
-	<section class = "search-form">
-		<%= form_for :customers, method: :get do |f| %>
-			
-			<div class="input-group input-group-lg">
-				<%= text_field_tag :keywords, nil, placeholder: "First Name, Last Name, or Email Adress",class: "form-control input-lg"%>
-				<span class = "input-group-btn">
-					<%= submit_tag "Find Costumers", class: "btn btn-primary btn-lg" %>
-				</span>
-			</div>
-		
-		<% end %>
-	</section>
-
-</header>
-<section class = "search-results container">
-	<header>
-		<h1 class="h3">Results</h1>
+<section ng-app = "customers" ng-controller = "CustomerSearchController">
+	<header class = "container">
+		<h1> Customer Search </h1>
+		<section class = "search-form">
+			<form>
+				<div class = "input-group input-group-lg">
+					<input type = "text" name = "keywords" ng-change = "search(keywords)"class = "form-control input-lg", placeholder= "First Name, Last Name, or Email Adress", ng-model = "keywords" >
+					<span class = "input-group-btn">
+						<button class = "btn btn-primary btn-lg" ng-click = "search(keywords)">
+					Find Customers
+						</button>
+					</span>
+				</div>
+			</form>
+		</section>
 	</header>
-	<%= render partial: "pager", locals: {keywords: @keywords, page: @page, customers_number: @customers.length, page_limit: @page_size }%>
-	<ol class="list-group">
-		<%@customers.each do |customer| %>
-			<li class = "list-group-item clearfix">
-				<h3 class = "pull-right">
-					<small class = "text-uppercase">Joined</small>
-						<%= customer.created_at.to_date %>
-				</h3>
-				<h2> <%= customer.first_name %> <%= customer.last_name %>
-				<small><%= customer.username %></small>
-				</h2>
-				<h4><%= customer.email %></h4>
-			</li>
-		<%end%>
-	</ol>
-	<%= render partial: "pager", locals: {keywords: @keywords, page: @page, customers_number: @customers.length, page_limit: @page_size }%>
+
+	<article> 
+		<section class = "search-results container">
+			<header>
+				<h1 class="h3">Results</h1>
+			</header>
+			<%= render partial: "pager", locals: {keywords: @keywords, page: @page, customers_number: @customers.length, page_limit: @page_size }%>
+			<ol class="list-group">
+				<li class = "list-group-item clearfix" ng-repeat = "customer in customers" >
+					<h3 class = "pull-right">
+						<small class = "text-uppercase">Joined</small>
+						{{customer.created_at | date}}
+					</h3>
+					<h2> {{customer.first_name}} {{customer.last_name }}
+						<small>{{customer.username}}</small>
+					</h2>
+					<h4>{{customer.email }}</h4>
+				</li>
+			</ol>
+			<%= render partial: "pager", locals: {keywords: @keywords, page: @page, customers_number: @customers.length, page_limit: @page_size }%>
+		</section>
+	</article>
 </section>
