@@ -5,13 +5,14 @@ app.controller("CustomerSearchController", [ "$scope","$http", function($scope, 
  $scope.customers = [];
   
   $scope.search = function(searchTerm) {   
-
-    $http.get('/customers.json',{ "params" : {"keywords": searchTerm, "page": page} }
-    	).then( function( response ) {
-    		$scope.customers = response.data;	
-    	}, function ( response){
-    		alert("There was a problem loading the page "+String( response.status ));
-    	});
+  	if ( searchTerm >= 3){
+	    $http.get('/customers.json',{ "params" : {"keywords": searchTerm, "page": page} }
+	    	).then( function( response ) {
+	    		$scope.customers = response.data;	
+	    	}, function ( response){
+	    		alert("There was a problem loading the page "+String( response.status ));
+	    	});
+    }
   }
   
   $scope.previousPage= function(){
