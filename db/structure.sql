@@ -2,12 +2,17 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.6.2
+-- Dumped by pg_dump version 9.6.1
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -30,7 +35,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: customers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE customers (
@@ -64,7 +69,7 @@ ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -73,7 +78,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -114,21 +119,21 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: customers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: customers customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY customers
@@ -136,7 +141,7 @@ ALTER TABLE ONLY customers
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -144,49 +149,42 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: customers_lower_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: customers_lower_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX customers_lower_email ON customers USING btree (lower((email)::text));
 
 
 --
--- Name: customers_lower_first_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: customers_lower_first_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX customers_lower_first_name ON customers USING btree (lower((first_name)::text) varchar_pattern_ops);
 
 
 --
--- Name: customers_lower_last_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX customers_lower_last_name ON customers USING btree (lower((last_name)::text) varchar_pattern_ops);
-
-
---
--- Name: index_customers_on_email_and_username; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_customers_on_email_and_username; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_customers_on_email_and_username ON customers USING btree (email, username);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -196,13 +194,11 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20160823132250');
 
 INSERT INTO schema_migrations (version) VALUES ('20160824074540');
-
-INSERT INTO schema_migrations (version) VALUES ('20160824100410');
 
 INSERT INTO schema_migrations (version) VALUES ('20160824102309');
 

@@ -1,0 +1,28 @@
+I"ƒ(function() {
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Teaspoon.Reporters.HTML.SimpleProgressView = (function(superClass) {
+    extend(SimpleProgressView, superClass);
+
+    function SimpleProgressView() {
+      return SimpleProgressView.__super__.constructor.apply(this, arguments);
+    }
+
+    SimpleProgressView.prototype.build = function() {
+      this.el = this.createEl("div", "simple-progress");
+      return this.el.innerHTML = "<em id=\"teaspoon-progress-percent\">0%</em>\n<span id=\"teaspoon-progress-span\" class=\"teaspoon-indicator\"></span>";
+    };
+
+    SimpleProgressView.prototype.update = function(total, run) {
+      var percent;
+      percent = total ? Math.ceil((run * 100) / total) : 0;
+      return this.setHtml("progress-percent", percent + "%");
+    };
+
+    return SimpleProgressView;
+
+  })(Teaspoon.Reporters.HTML.ProgressView);
+
+}).call(this);
+:ET

@@ -1,0 +1,130 @@
+I"õ(function() {
+  this.Teaspoon = (function() {
+    function Teaspoon() {}
+
+    Teaspoon.defer = false;
+
+    Teaspoon.slow = 75;
+
+    Teaspoon.root = window.location.pathname.replace(/\/+(index\.html)?$/, "").replace(/\/[^\/]*$/, "");
+
+    Teaspoon.started = false;
+
+    Teaspoon.finished = false;
+
+    Teaspoon.Reporters = {};
+
+    Teaspoon.Date = Date;
+
+    Teaspoon.location = window.location;
+
+    Teaspoon.messages = [];
+
+    Teaspoon.execute = function() {
+      if (!Teaspoon.framework) {
+        throw "No framework registered. Expected a framework to register itself, but nothing has.";
+      }
+      if (Teaspoon.defer) {
+        Teaspoon.defer = false;
+        return;
+      }
+      if (Teaspoon.started) {
+        Teaspoon.reload();
+      }
+      Teaspoon.started = true;
+      return new (Teaspoon.resolveClass("Runner"))();
+    };
+
+    Teaspoon.reload = function() {
+      return window.location.reload();
+    };
+
+    Teaspoon.onWindowLoad = function(method) {
+      var originalOnload;
+      originalOnload = window.onload;
+      return window.onload = function() {
+        if (originalOnload && originalOnload.call) {
+          originalOnload();
+        }
+        return method();
+      };
+    };
+
+    Teaspoon.resolveDependenciesFromParams = function(all) {
+      var dep, deps, file, j, k, len, len1, parts, path, paths;
+      if (all == null) {
+        all = [];
+      }
+      deps = [];
+      if ((paths = Teaspoon.location.search.match(/[\?&]file(\[\])?=[^&\?]*/gi)) === null) {
+        return all;
+      }
+      for (j = 0, len = paths.length; j < len; j++) {
+        path = paths[j];
+        parts = decodeURIComponent(path.replace(/\+/g, " ")).match(/\/(.+)\.(js|js.coffee|coffee)$/i);
+        if (parts === null) {
+          continue;
+        }
+        file = parts[1].substr(parts[1].lastIndexOf("/") + 1);
+        for (k = 0, len1 = all.length; k < len1; k++) {
+          dep = all[k];
+          if (dep.indexOf(file) >= 0) {
+            deps.push(dep);
+          }
+        }
+      }
+      return deps;
+    };
+
+    Teaspoon.log = function() {
+      var e, error;
+      Teaspoon.messages.push(arguments[0]);
+      try {
+        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log.apply(console, arguments) : void 0 : void 0;
+      } catch (error) {
+        e = error;
+        throw new Error("Unable to use console.log for logging");
+      }
+    };
+
+    Teaspoon.getMessages = function() {
+      var messages;
+      messages = Teaspoon.messages;
+      Teaspoon.messages = [];
+      return messages;
+    };
+
+    Teaspoon.setFramework = function(namespace) {
+      Teaspoon.framework = namespace;
+      return window.fixture = Teaspoon.resolveClass("Fixture");
+    };
+
+    Teaspoon.resolveClass = function(klass) {
+      var framework_override, teaspoon_core;
+      if (framework_override = Teaspoon.checkNamespace(Teaspoon.framework, klass)) {
+        return framework_override;
+      } else if (teaspoon_core = Teaspoon.checkNamespace(Teaspoon, klass)) {
+        return teaspoon_core;
+      }
+      throw "Could not find the class you're looking for: " + klass;
+    };
+
+    Teaspoon.checkNamespace = function(root, klass) {
+      var i, j, len, namespace, namespaces, scope;
+      namespaces = klass.split('.');
+      scope = root;
+      for (i = j = 0, len = namespaces.length; j < len; i = ++j) {
+        namespace = namespaces[i];
+        if (!(scope = scope[namespace])) {
+          return false;
+        }
+      }
+      return scope;
+    };
+
+    return Teaspoon;
+
+  })();
+
+}).call(this);
+:ET

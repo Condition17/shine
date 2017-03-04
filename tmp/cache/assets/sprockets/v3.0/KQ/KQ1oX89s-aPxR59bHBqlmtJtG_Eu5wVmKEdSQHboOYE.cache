@@ -1,0 +1,5 @@
+I"O(function() {
+  Teaspoon.setFramework(Teaspoon.Jasmine1);
+
+}).call(this);
+:ET

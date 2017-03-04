@@ -1,0 +1,5 @@
+I"P(function() {
+  Teaspoon.Mixins || (Teaspoon.Mixins = {});
+
+}).call(this);
+:ET

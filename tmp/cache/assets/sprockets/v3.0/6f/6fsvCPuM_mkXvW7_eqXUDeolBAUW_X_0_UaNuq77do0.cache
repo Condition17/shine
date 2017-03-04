@@ -1,0 +1,53 @@
+I"á(function() {
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Teaspoon.Reporters.HTML.RadialProgressView = (function(superClass) {
+    extend(RadialProgressView, superClass);
+
+    function RadialProgressView() {
+      return RadialProgressView.__super__.constructor.apply(this, arguments);
+    }
+
+    RadialProgressView.supported = !!document.createElement("canvas").getContext;
+
+    RadialProgressView.prototype.build = function() {
+      this.el = this.createEl("div", "teaspoon-indicator radial-progress");
+      return this.el.innerHTML = "<canvas id=\"teaspoon-progress-canvas\"></canvas>\n<em id=\"teaspoon-progress-percent\">0%</em>";
+    };
+
+    RadialProgressView.prototype.appendTo = function() {
+      var canvas, e, error;
+      RadialProgressView.__super__.appendTo.apply(this, arguments);
+      this.size = 80;
+      try {
+        canvas = this.findEl("progress-canvas");
+        canvas.width = canvas.height = canvas.style.width = canvas.style.height = this.size;
+        this.ctx = canvas.getContext("2d");
+        this.ctx.strokeStyle = "#fff";
+        return this.ctx.lineWidth = 1.5;
+      } catch (error) {
+        e = error;
+      }
+    };
+
+    RadialProgressView.prototype.update = function(total, run) {
+      var half, percent;
+      percent = total ? Math.ceil((run * 100) / total) : 0;
+      this.setHtml("progress-percent", percent + "%");
+      if (!this.ctx) {
+        return;
+      }
+      half = this.size / 2;
+      this.ctx.clearRect(0, 0, this.size, this.size);
+      this.ctx.beginPath();
+      this.ctx.arc(half, half, half - 1, 0, Math.PI * 2 * (percent / 100), false);
+      return this.ctx.stroke();
+    };
+
+    return RadialProgressView;
+
+  })(Teaspoon.Reporters.HTML.ProgressView);
+
+}).call(this);
+:ET

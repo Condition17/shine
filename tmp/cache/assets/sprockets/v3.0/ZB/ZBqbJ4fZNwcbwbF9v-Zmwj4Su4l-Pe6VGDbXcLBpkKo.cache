@@ -1,0 +1,37 @@
+I"(function() {
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Teaspoon.Jasmine2.Runner = (function(superClass) {
+    extend(Runner, superClass);
+
+    function Runner() {
+      this.env = window.jasmine.getEnv();
+      Runner.__super__.constructor.apply(this, arguments);
+      this.env.execute();
+    }
+
+    Runner.prototype.setup = function() {
+      var reporter, responder;
+      reporter = new (this.getReporter())();
+      responder = new Teaspoon.Jasmine2.Responder(reporter);
+      this.env.addReporter(responder);
+      return this.addFixtureSupport();
+    };
+
+    Runner.prototype.addFixtureSupport = function() {
+      if (!(jasmine.getFixtures && this.fixturePath)) {
+        return;
+      }
+      jasmine.getFixtures().containerId = "teaspoon-fixtures";
+      jasmine.getFixtures().fixturesPath = this.fixturePath;
+      jasmine.getStyleFixtures().fixturesPath = this.fixturePath;
+      return jasmine.getJSONFixtures().fixturesPath = this.fixturePath;
+    };
+
+    return Runner;
+
+  })(Teaspoon.Runner);
+
+}).call(this);
+:ET

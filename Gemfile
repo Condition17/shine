@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'sprockets', '~> 3.0'
 gem 'simple_form'
 gem 'faker'
 gem 'bower-rails'
@@ -35,9 +36,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
- gem 'rspec-rails', '~>3.0'
-  gem 'byebug'
   gem 'poltergeist'
+  gem 'byebug'
+  gem 'rspec-rails', '~>3.0'
   gem 'database_cleaner'
   gem 'teaspoon-jasmine'
 end

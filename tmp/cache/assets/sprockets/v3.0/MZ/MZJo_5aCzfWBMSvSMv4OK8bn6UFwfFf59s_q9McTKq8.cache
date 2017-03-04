@@ -1,0 +1,21 @@
+I"ø(function() {
+  var base, base1;
+
+  if (typeof jasmineRequire === "undefined" || jasmineRequire === null) {
+    throw new Teaspoon.Error('Jasmine 2 not found -- use `suite.use_framework :jasmine` and adjust or remove the `suite.javascripts` directive.');
+  }
+
+  if (this.Teaspoon == null) {
+    this.Teaspoon = {};
+  }
+
+  if ((base = this.Teaspoon).Jasmine2 == null) {
+    base.Jasmine2 = {};
+  }
+
+  if ((base1 = this.Teaspoon.Jasmine2).Reporters == null) {
+    base1.Reporters = {};
+  }
+
+}).call(this);
+:ET
